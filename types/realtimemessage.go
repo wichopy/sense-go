@@ -32,21 +32,3 @@ type Payload struct {
 	Stats    map[string]float64 `json:"_stats"`
 	Epoch    int64              `json:"epoch"`
 }
-
-type Device struct {
-	ID    string        `json:"id"`
-	Name  string        `json:"name"`
-	Icon  string        `json:"icon"`
-	Tags  Tags          `json:"tags"`
-	Attrs []interface{} `json:"attrs"`
-	W     float64       `json:"w"`
-}
-
-type Tags struct {
-	DefaultUserDeviceType       string `json:"DefaultUserDeviceType"`
-	DeviceListAllowed           string `json:"DeviceListAllowed"`
-	TimelineAllowed             string `json:"TimelineAllowed"`
-	UserDeviceType              string `json:"UserDeviceType"`
-	UserDeviceTypeDisplayString string `json:"UserDeviceTypeDisplayString"`
-	UserEditable                string `json:"UserEditable"`
-}

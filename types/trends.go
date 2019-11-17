@@ -29,20 +29,6 @@ type Consumption struct {
 	Devices []Device `json:"devices"`
 }
 
-type Device struct {
-	ID        string  `json:"id"`
-	MonitorID int64   `json:"monitorId"`
-	Name      string  `json:"name"`
-	Icon      string  `json:"icon"`
-	Tags      Tags    `json:"tags"`
-	History   []int64 `json:"history"`
-	Avgw      int64   `json:"avgw"`
-}
-
-type Tags struct {
-	UserDeviceTypeDisplayString string `json:"UserDeviceTypeDisplayString"`
-}
-
 type Production struct {
 	Total int64 `json:"total"`
 }

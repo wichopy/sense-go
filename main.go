@@ -6,7 +6,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/wichopy/sense-go/types"
+	"github.com/wichopy/sense-go/app"
 )
 
 const SenseBaseURL = "https://api.sense.com/apiservice/api/v1"
@@ -33,7 +33,7 @@ func authHandler(w http.ResponseWriter, r *http.Request) {
 		log.Fatalf("Error reading response body, %v", err)
 		return
 	}
-	body, err := types.UnmarshalSenseAuthenticationResponse(rawBody)
+	body, err := app.UnmarshalSenseAuthenticationResponse(rawBody)
 	if err != nil {
 		log.Fatalf("Error Unmarshalling response body, %v", err)
 		return

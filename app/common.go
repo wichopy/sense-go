@@ -1,4 +1,4 @@
-package types
+package app
 
 type Tags struct {
 	DefaultUserDeviceType       string `json:"DefaultUserDeviceType"`

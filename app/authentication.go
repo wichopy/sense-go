@@ -12,6 +12,13 @@ func (r *SenseAuthenticationResponse) Marshal() ([]byte, error) {
 	return json.Marshal(r)
 }
 
+type Auth struct {
+	AccessToken string `json:"accessToken"`
+	AccountID   int64  `json:"accountID"`
+	UserID      int64  `json:"userID"`
+	MonitorID   int64  `json:"monitorID"`
+}
+
 type SenseAuthenticationResponse struct {
 	Authorized   bool        `json:"authorized"`
 	AccountID    int64       `json:"account_id"`

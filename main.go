@@ -19,6 +19,36 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1:])
 }
 
+func getDeviceList(monitorId int64, accessToken string) (app.DeviceResponse, error) {
+	client := &http.Client{}
+	path := fmt.Sprintf("/app/monitors/%s/devices?include_merged=true", strconv.FormatInt(monitorId, 10))
+	req, _ := http.NewRequest("GET", SenseBaseURL+path, nil)
+	req.Header.Set("content-type", "application/x-www-form-urlencoded; charset=UTF-8;")
+	req.Header.Set("authorization", fmt.Sprintf("bearer %s", accessToken))
+	res, err := client.Do(req)
+	if err != nil {
+		log.Printf("Error getting device list")
+		return nil, err
+	}
+
+	defer res.Body.Close()
+
+	rawBody, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		log.Fatalf("Error reading response body, %v", err)
+		return nil, err
+	}
+
+	devices, err := app.UnmarshalDevices(rawBody)
+	if err != nil {
+		log.Fatalf("Error Unmarshalling response body, %v", err)
+		return nil, err
+	}
+
+	log.Printf("%v", devices)
+	return devices, err
+}
+
 func authHandler(w http.ResponseWriter, r *http.Request) {
 	path := "/authenticate"
 
@@ -51,8 +81,8 @@ func authHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	// log.Printf("Response:, %v", body)
 	// log.Printf("Auth:, %v", auth)
-
-	realtimeClient(auth.MonitorID, auth.AccessToken)
+	getDeviceList(auth.MonitorID, auth.AccessToken)
+	// realtimeClient(auth.MonitorID, auth.AccessToken)
 }
 
 func realtimeClient(monitorId int64, accessToken string) {
